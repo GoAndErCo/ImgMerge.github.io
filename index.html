@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ═══ SEO: Primary ═══════════════════════════════════════════════ -->
+  <title>ImgMerge – Free Online Image Combiner | Merge Photos Side by Side</title>
+  <meta name="description" content="Merge multiple images into one for free — side by side, stacked vertically, or in a grid. No uploads, no sign-up. Works entirely in your browser. Download as PNG, JPEG or WEBP instantly."/>
+  <meta name="keywords" content="merge images online, combine photos, image combiner, photo collage, side by side images, join images, free image tool, no upload image editor"/>
+  <meta name="author" content="ImgMerge"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://YOUR-USERNAME.github.io/imgmerge/"/>
+
+  <!-- ═══ SEO: Open Graph (Facebook / LinkedIn) ══════════════════════ -->
+  <meta property="og:type"        content="website"/>
+  <meta property="og:url"         content="https://YOUR-USERNAME.github.io/imgmerge/"/>
+  <meta property="og:title"       content="ImgMerge – Free Online Image Combiner"/>
+  <meta property="og:description" content="Combine multiple photos into one image — side by side, vertical or grid layout. Free, instant, no uploads required."/>
+  <meta property="og:image"       content="https://YOUR-USERNAME.github.io/imgmerge/og-image.png"/>
+  <meta property="og:locale"      content="en_US"/>
+  <meta property="og:site_name"   content="ImgMerge"/>
+
+  <!-- ═══ SEO: Twitter Card ══════════════════════════════════════════ -->
+  <meta name="twitter:card"        content="summary_large_image"/>
+  <meta name="twitter:title"       content="ImgMerge – Free Online Image Combiner"/>
+  <meta name="twitter:description" content="Merge photos side by side, vertically or in a grid. Free, no uploads, works in your browser."/>
+  <meta name="twitter:image"       content="https://YOUR-USERNAME.github.io/imgmerge/og-image.png"/>
+
+  <!-- ═══ SEO: JSON-LD Structured Data ══════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ImgMerge",
+    "url": "https://YOUR-USERNAME.github.io/imgmerge/",
+    "description": "Free online tool to merge multiple images into one. Combine photos side by side, vertically or in a grid layout. No uploads required — runs entirely in your browser.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Merge images horizontally side by side",
+      "Stack images vertically",
+      "Auto grid layout",
+      "Adjustable gap and padding",
+      "Custom background color",
+      "Export as PNG, JPEG or WEBP",
+      "No file uploads — fully browser-based"
+    ]
+  }
+  </script>
+
+  <!-- ═══ AdSense: Replace with your publisher ID ════════════════════ -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0d0d0d; --surface: #161616; --surface2: #1e1e1e;
+      --border: #2a2a2a; --accent: #e8a020; --text: #f0ede8;
+      --muted: #666; --radius: 4px;
+      --ad-h: 90px; /* bottom banner height */
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 100vh; overflow-x: hidden;
+      padding-bottom: calc(var(--ad-h) + 16px);
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: linear-gradient(rgba(232,160,32,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(232,160,32,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    header { padding: 32px 0 24px; display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--border); }
+    h1.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -1px; }
+    h1.logo span { color: var(--accent); }
+    .tagline { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-left: auto; }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    main { padding: 40px 0; display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+    @media(max-width:768px){ main{grid-template-columns:1fr;} .tagline{display:none;} }
+
+    /* ── Panel ──────────────────────────────────────────────────── */
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .panel-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+    .panel-header::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    .panel-body { padding: 20px; }
+
+    /* ── Drop zone ──────────────────────────────────────────────── */
+    #dropzone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 48px 24px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; position: relative; }
+    #dropzone:hover, #dropzone.drag-over { border-color: var(--accent); background: rgba(232,160,32,0.04); }
+    #dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .drop-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.6; }
+    .drop-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .drop-sub { font-size: 11px; color: var(--muted); }
+
+    /* ── Thumbnails ─────────────────────────────────────────────── */
+    #thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-top: 16px; }
+    .thumb-item { position: relative; aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); cursor: grab; transition: transform .15s, box-shadow .15s; user-select: none; }
+    .thumb-item:active { cursor: grabbing; }
+    .thumb-item:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0,0,0,.5); }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .thumb-remove { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; background: rgba(0,0,0,.85); border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; cursor: pointer; opacity: 0; transition: opacity .15s; z-index: 2; }
+    .thumb-item:hover .thumb-remove { opacity: 1; }
+    .thumb-num { position: absolute; bottom: 3px; left: 4px; font-size: 9px; color: rgba(255,255,255,.7); }
+    .thumb-item.drag-over-thumb { border-color: var(--accent); }
+
+    /* ── Controls ───────────────────────────────────────────────── */
+    .ctrl-row { display: flex; flex-direction: column; gap: 14px; }
+    .ctrl-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .mode-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 12px 8px; border-radius: var(--radius); cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-align: center; transition: all .15s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .mode-btn svg { opacity: .5; transition: opacity .15s; }
+    .mode-btn:hover, .mode-btn.active { border-color: var(--accent); color: var(--accent); }
+    .mode-btn.active svg { opacity: 1; }
+    .slider-row { display: flex; align-items: center; gap: 12px; }
+    input[type=range] { flex: 1; -webkit-appearance: none; background: var(--surface2); height: 4px; border-radius: 2px; outline: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; cursor: pointer; }
+    .slider-val { font-size: 11px; color: var(--accent); min-width: 38px; text-align: right; }
+    input[type=color] { width: 36px; height: 28px; border: 1px solid var(--border); border-radius: var(--radius); background: none; cursor: pointer; padding: 2px; }
+
+    /* ── Buttons ────────────────────────────────────────────────── */
+    .btn { display: block; width: 100%; padding: 14px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: none; border-radius: var(--radius); cursor: pointer; transition: all .15s; }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover:not(:disabled) { background: #ffb733; }
+    .btn-primary:disabled { background: #2a2a2a; color: var(--muted); cursor: not-allowed; }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); margin-top: 8px; }
+    .btn-secondary:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .btn-secondary:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* ── Preview ────────────────────────────────────────────────── */
+    .preview-wrap { background: #111; min-height: 300px; display: flex; align-items: center; justify-content: center; overflow: auto; }
+    #canvas-out { max-width: 100%; max-height: 600px; display: none; border-radius: var(--radius); }
+    .preview-placeholder { text-align: center; color: var(--muted); font-size: 12px; }
+    .preview-placeholder .big { font-size: 48px; margin-bottom: 8px; }
+    #info-bar { padding: 8px 20px; border-top: 1px solid var(--border); font-size: 10px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+    #info-bar span { color: var(--accent); }
+
+    /* ── SEO footer ─────────────────────────────────────────────── */
+    .seo-footer { padding: 40px 0 24px; border-top: 1px solid var(--border); }
+    .seo-footer h2 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .seo-footer p  { font-size: 11px; color: var(--muted); line-height: 1.8; max-width: 700px; }
+    .seo-footer ul { list-style: none; display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; }
+    .seo-footer ul li { font-size: 10px; color: var(--muted); }
+    .seo-footer ul li::before { content: '✓ '; color: var(--accent); }
+
+    /* ── Toast ──────────────────────────────────────────────────── */
+    #toast { position: fixed; bottom: calc(var(--ad-h) + 16px); left: 50%; transform: translateX(-50%) translateY(80px); background: var(--accent); color: #000; padding: 10px 20px; border-radius: var(--radius); font-size: 12px; font-weight: 500; transition: transform .3s; z-index: 999; pointer-events: none; }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    hr.div { border: none; border-top: 1px solid var(--border); margin: 2px 0; }
+    .spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(0,0,0,.3); border-top-color: #000; border-radius: 50%; animation: spin .6s linear infinite; margin-right: 6px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ═══ AdSense Bottom Banner ════════════════════════════════════ */
+    #ad-bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--ad-h);
+      background: #111;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+    }
+    #ad-bottom-bar .ad-label {
+      position: absolute;
+      top: 4px; left: 8px;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    #ad-bottom-bar .ad-close {
+      position: absolute;
+      top: 6px; right: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+      background: none; border: none;
+      transition: color .15s;
+    }
+    #ad-bottom-bar .ad-close:hover { color: var(--text); }
+    #ad-bottom-bar ins { display: block; }
+    @media(max-width:728px) {
+      :root { --ad-h: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1 class="logo">Img<span>Merge</span></h1>
+    <p class="tagline">Runs in browser &nbsp;·&nbsp; No uploads &nbsp;·&nbsp; Free</p>
+  </header>
+
+  <main>
+    <!-- ── Left col ── -->
+    <div>
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-header">Add Images</div>
+        <div class="panel-body">
+          <div id="dropzone" role="button" aria-label="Upload images by clicking or dragging files here">
+            <input type="file" id="file-input" accept="image/*" multiple aria-label="Select image files">
+            <div class="drop-icon" aria-hidden="true">⊕</div>
+            <div class="drop-title">Drag &amp; Drop Images Here</div>
+            <div class="drop-sub">or click to browse &nbsp;·&nbsp; PNG, JPG, WEBP, GIF &nbsp;·&nbsp; drag thumbnails to reorder</div>
+          </div>
+          <div id="thumb-grid" role="list" aria-label="Uploaded images"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Preview</div>
+        <div class="panel-body" style="padding:0">
+          <div class="preview-wrap">
+            <div class="preview-placeholder" id="preview-placeholder" aria-live="polite">
+              <div class="big" aria-hidden="true">◻</div>
+              Add at least 2 images, then hit Merge
+            </div>
+            <canvas id="canvas-out" aria-label="Merged image preview"></canvas>
+          </div>
+        </div>
+        <div id="info-bar" aria-live="polite">
+          <div>Output: <span id="info-size">—</span></div>
+          <div>Images: <span id="info-count">0</span></div>
+          <div>Mode: <span id="info-mode">Horizontal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Right col ── -->
+    <div>
+      <div class="panel">
+        <div class="panel-header">Settings</div>
+        <div class="panel-body">
+          <div class="ctrl-row">
+
+            <div>
+              <div class="ctrl-label">Merge Mode</div>
+              <div class="mode-grid" role="group" aria-label="Merge layout mode">
+                <button class="mode-btn active" data-mode="horizontal" aria-pressed="true" title="Place images side by side">
+                  <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true"><rect x="1" y="1" width="12" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="15" y="1" width="12" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                  Horizontal
+                </button>
+                <button class="mode-btn" data-mode="vertical" aria-pressed="false" title="Stack images top to bottom">
+                  <svg width="20" height="28" viewBox="0 0 20 28" aria-hidden="true"><rect x="1" y="1" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="15" width="18" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                  Vertical
+                </button>
+                <button class="mode-btn" data-mode="grid" aria-pressed="false" title="Auto grid layout">
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="1" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="13" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="13" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                  Grid
+                </button>
+              </div>
+            </div>
+
+            <hr class="div">
+
+            <div>
+              <div class="ctrl-label">Gap Between Images</div>
+              <div class="slider-row">
+                <input type="range" id="gap" min="0" max="80" value="0" aria-label="Gap between images in pixels">
+                <div class="slider-val"><span id="gap-val">0</span>px</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Canvas Padding</div>
+              <div class="slider-row">
+                <input type="range" id="padding" min="0" max="120" value="0" aria-label="Canvas padding in pixels">
+                <div class="slider-val"><span id="pad-val">0</span>px</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Background Color</div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <input type="color" id="bg-color" value="#ffffff" aria-label="Background color for gap and padding areas">
+                <span style="font-size:11px;color:var(--muted)">For gap &amp; padding areas</span>
+              </div>
+            </div>
+
+            <hr class="div">
+
+            <div>
+              <div class="ctrl-label">Output Scale</div>
+              <div class="slider-row">
+                <input type="range" id="scale" min="25" max="200" value="100" step="25" aria-label="Output image scale percentage">
+                <div class="slider-val"><span id="scale-val">100</span>%</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="ctrl-label">File Format</div>
+              <div style="display:flex;gap:16px;flex-wrap:wrap" role="radiogroup" aria-label="Output file format">
+                <label style="display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer"><input type="radio" name="fmt" value="png" checked> PNG</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer"><input type="radio" name="fmt" value="jpeg"> JPEG</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:11px;cursor:pointer"><input type="radio" name="fmt" value="webp"> WEBP</label>
+              </div>
+            </div>
+
+            <hr class="div">
+
+            <button class="btn btn-primary" id="merge-btn" disabled aria-label="Merge all uploaded images">▶ &nbsp;Merge Images</button>
+            <button class="btn btn-secondary" id="download-btn" disabled aria-label="Download merged image">↓ &nbsp;Download Result</button>
+            <button class="btn btn-secondary" id="clear-btn" aria-label="Clear all images">✕ &nbsp;Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── SEO-rich descriptive footer ── -->
+  <footer class="seo-footer">
+    <h2>Free Online Image Merger — No Upload Required</h2>
+    <p>ImgMerge lets you combine multiple photos and images into a single file directly in your browser. Choose from horizontal (side by side), vertical (stacked), or automatic grid layouts. Adjust the gap, padding and background color, then export as PNG, JPEG, or WEBP — all without uploading anything to a server.</p>
+    <ul>
+      <li>No sign-up or account needed</li>
+      <li>Files never leave your device</li>
+      <li>Supports PNG, JPG, WEBP &amp; GIF input</li>
+      <li>Drag to reorder images before merging</li>
+      <li>Adjustable gap, padding &amp; background</li>
+      <li>Export at up to 200% scale</li>
+    </ul>
+  </footer>
+</div><!-- /.container -->
+
+<div id="toast" role="status" aria-live="assertive"></div>
+
+<!-- ═══ AdSense Bottom Banner ═══════════════════════════════════════
+     Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID
+     Replace XXXXXXXXXX with your Ad Slot ID
+     ================================================================ -->
+<div id="ad-bottom-bar">
+  <span class="ad-label">Advertisement</span>
+  <button class="ad-close" onclick="document.getElementById('ad-bottom-bar').style.display='none'; document.body.style.paddingBottom='0'" aria-label="Close advertisement">&times;</button>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<script>
+  let images = [];
+  let mode = 'horizontal';
+
+  const fileInput   = document.getElementById('file-input');
+  const dropzone    = document.getElementById('dropzone');
+  const thumbGrid   = document.getElementById('thumb-grid');
+  const mergeBtn    = document.getElementById('merge-btn');
+  const downloadBtn = document.getElementById('download-btn');
+  const clearBtn    = document.getElementById('clear-btn');
+  const canvas      = document.getElementById('canvas-out');
+  const ctx         = canvas.getContext('2d');
+  const placeholder = document.getElementById('preview-placeholder');
+  const toast       = document.getElementById('toast');
+  const gapSlider   = document.getElementById('gap');
+  const padSlider   = document.getElementById('padding');
+  const scaleSlider = document.getElementById('scale');
+  const bgColor     = document.getElementById('bg-color');
+
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('drag-over'); loadFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change', e => { loadFiles(e.target.files); fileInput.value = ''; });
+
+  gapSlider.addEventListener('input',   () => document.getElementById('gap-val').textContent   = gapSlider.value);
+  padSlider.addEventListener('input',   () => document.getElementById('pad-val').textContent   = padSlider.value);
+  scaleSlider.addEventListener('input', () => document.getElementById('scale-val').textContent = scaleSlider.value);
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mode-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      mode = btn.dataset.mode;
+      document.getElementById('info-mode').textContent = {horizontal:'Horizontal', vertical:'Vertical', grid:'Grid'}[mode];
+    });
+  });
+
+  function loadFiles(files) {
+    const list = [...files].filter(f => f.type.startsWith('image/'));
+    if (!list.length) return;
+    let done = 0;
+    list.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload  = () => { images.push({ img, name: file.name, src: e.target.result }); if (++done === list.length) { renderThumbs(); updateUI(); } };
+        img.onerror = () => { if (++done === list.length) { renderThumbs(); updateUI(); } };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderThumbs() {
+    thumbGrid.innerHTML = '';
+    images.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'thumb-item';
+      div.draggable = true;
+      div.setAttribute('role','listitem');
+      div.setAttribute('aria-label', `Image ${i+1}: ${item.name}`);
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.name;
+      div.appendChild(img);
+
+      const num = document.createElement('div'); num.className = 'thumb-num'; num.textContent = i + 1;
+      div.appendChild(num);
+
+      const rm = document.createElement('button'); rm.className = 'thumb-remove'; rm.innerHTML = '&times;'; rm.title = 'Remove image';
+      rm.setAttribute('aria-label', `Remove image ${i+1}`);
+      rm.addEventListener('click', e => { e.stopPropagation(); images.splice(i,1); renderThumbs(); updateUI(); });
+      div.appendChild(rm);
+
+      div.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', String(i)); e.dataTransfer.effectAllowed='move'; setTimeout(()=>div.classList.add('dragging'),0); });
+      div.addEventListener('dragend',   () => div.classList.remove('dragging'));
+      div.addEventListener('dragover',  e => { e.preventDefault(); div.classList.add('drag-over-thumb'); });
+      div.addEventListener('dragleave', () => div.classList.remove('drag-over-thumb'));
+      div.addEventListener('drop', e => {
+        e.preventDefault(); div.classList.remove('drag-over-thumb');
+        const from = parseInt(e.dataTransfer.getData('text/plain'));
+        if (from !== i) { const moved = images.splice(from,1)[0]; images.splice(i,0,moved); renderThumbs(); }
+      });
+      thumbGrid.appendChild(div);
+    });
+    document.getElementById('info-count').textContent = images.length;
+  }
+
+  function updateUI() {
+    const ready = images.length >= 2;
+    mergeBtn.disabled = !ready;
+    if (!ready) {
+      downloadBtn.disabled = true;
+      canvas.style.display = 'none';
+      placeholder.style.display = 'block';
+      document.getElementById('info-size').textContent = '—';
+    }
+  }
+
+  mergeBtn.addEventListener('click', () => {
+    mergeBtn.innerHTML = '<span class="spinner"></span>Merging…';
+    mergeBtn.disabled = true;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      try { doMerge(); } catch(err) { showToast('Error: ' + err.message); }
+      mergeBtn.innerHTML = '▶ &nbsp;Merge Images';
+      mergeBtn.disabled = false;
+    }));
+  });
+
+  function doMerge() {
+    const gap   = parseInt(gapSlider.value);
+    const pad   = parseInt(padSlider.value);
+    const scale = parseInt(scaleSlider.value) / 100;
+    const bg    = bgColor.value;
+    const imgs  = images.map(o => o.img);
+
+    if (mode === 'horizontal') {
+      const maxH = Math.max(...imgs.map(i => i.naturalHeight));
+      let W = pad * 2 + gap * (imgs.length - 1);
+      imgs.forEach(i => { W += Math.round(i.naturalWidth * maxH / i.naturalHeight); });
+      canvas.width  = Math.round(W * scale);
+      canvas.height = Math.round((maxH + pad * 2) * scale);
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      let x = pad;
+      imgs.forEach(i => {
+        const w = i.naturalWidth * maxH / i.naturalHeight;
+        ctx.drawImage(i, Math.round(x*scale), Math.round(pad*scale), Math.round(w*scale), Math.round(maxH*scale));
+        x += w + gap;
+      });
+
+    } else if (mode === 'vertical') {
+      const maxW = Math.max(...imgs.map(i => i.naturalWidth));
+      let H = pad * 2 + gap * (imgs.length - 1);
+      imgs.forEach(i => { H += Math.round(i.naturalHeight * maxW / i.naturalWidth); });
+      canvas.width  = Math.round((maxW + pad * 2) * scale);
+      canvas.height = Math.round(H * scale);
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      let y = pad;
+      imgs.forEach(i => {
+        const h = i.naturalHeight * maxW / i.naturalWidth;
+        ctx.drawImage(i, Math.round(pad*scale), Math.round(y*scale), Math.round(maxW*scale), Math.round(h*scale));
+        y += h + gap;
+      });
+
+    } else {
+      const cols  = Math.ceil(Math.sqrt(imgs.length));
+      const rows  = Math.ceil(imgs.length / cols);
+      const cellW = Math.max(...imgs.map(i => i.naturalWidth));
+      const cellH = Math.max(...imgs.map(i => i.naturalHeight));
+      canvas.width  = Math.round((cols*cellW + (cols-1)*gap + pad*2) * scale);
+      canvas.height = Math.round((rows*cellH + (rows-1)*gap + pad*2) * scale);
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      imgs.forEach((img, i) => {
+        const col = i % cols, row = Math.floor(i / cols);
+        const offX = (cellW - img.naturalWidth) / 2, offY = (cellH - img.naturalHeight) / 2;
+        ctx.drawImage(img,
+          Math.round((pad + col*(cellW+gap) + offX)*scale),
+          Math.round((pad + row*(cellH+gap) + offY)*scale),
+          Math.round(img.naturalWidth*scale), Math.round(img.naturalHeight*scale));
+      });
+    }
+
+    canvas.style.display = 'block';
+    placeholder.style.display = 'none';
+    document.getElementById('info-size').textContent = canvas.width + ' × ' + canvas.height + ' px';
+    downloadBtn.disabled = false;
+  }
+
+  downloadBtn.addEventListener('click', () => {
+    const fmt     = document.querySelector('input[name=fmt]:checked').value;
+    const mime    = fmt === 'jpeg' ? 'image/jpeg' : fmt === 'webp' ? 'image/webp' : 'image/png';
+    const ext     = fmt === 'jpeg' ? 'jpg' : fmt;
+    const quality = (fmt === 'jpeg' || fmt === 'webp') ? 0.92 : undefined;
+
+    downloadBtn.innerHTML = '<span class="spinner"></span>Saving…';
+    downloadBtn.disabled = true;
+
+    canvas.toBlob(blob => {
+      if (!blob) { showToast('Could not generate file.'); downloadBtn.innerHTML = '↓ &nbsp;Download Result'; downloadBtn.disabled = false; return; }
+      const url = URL.createObjectURL(blob);
+      const a   = document.createElement('a');
+      a.href = url; a.download = 'merged.' + ext;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(url); document.body.removeChild(a); }, 1500);
+      showToast('✓ File downloaded!');
+      downloadBtn.innerHTML = '↓ &nbsp;Download Result';
+      downloadBtn.disabled = false;
+    }, mime, quality);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    images = []; renderThumbs(); updateUI();
+    canvas.style.display = 'none'; placeholder.style.display = 'block';
+    document.getElementById('info-size').textContent = '—';
+  });
+
+  function showToast(msg) { toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
+</script>
+</body>
+</html>
